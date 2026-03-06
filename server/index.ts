@@ -17,3 +17,16 @@ app.use((req, res) => {
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+import multer from "multer";
+
+const upload = multer({ storage: multer.memoryStorage() });
+
+app.post("/api/analyze", upload.single("image"), async (req, res) => {
+  res.json({
+    problemType: "Garbage Dump",
+    severity: "Medium",
+    department: "Municipal Waste Management",
+    suggestion: "Clean the area and install waste bins."
+  });
+});
